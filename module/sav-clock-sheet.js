@@ -22,7 +22,7 @@ export class SaVClockSheet extends ActorSheet {
       super.defaultOptions,
       {
         classes: ["clocks", "sheet", `clocks-system-${game.system.id}`, "actor", "npc"],
-        template: "systems/scum-and-villainy/templates/sav-clock-sheet.html",
+        template: "systems/ziggurat/templates/sav-clock-sheet.html",
         width: 360,
         height: 550,
         ...supportedSystem.sheetDefaultOptions
@@ -151,19 +151,19 @@ export default {
   let t = canvas.tokens.get(token.id);
   let a = game.actors.get(token.actorId);
 
-  if( !a?.flags['scum-and-villainy']?.clocks ) {
+  if( !a?.flags['ziggurat']?.clocks ) {
     return false;
   }
 
-  const button1HTML = await renderTemplate('systems/scum-and-villainy/templates/sav-clock-button1.html');
-  const button2HTML = await renderTemplate('systems/scum-and-villainy/templates/sav-clock-button2.html');
+  const button1HTML = await renderTemplate('systems/ziggurat/templates/sav-clock-button1.html');
+  const button2HTML = await renderTemplate('systems/ziggurat/templates/sav-clock-button2.html');
 
   html.find("div.left").append(button1HTML).click(async (event) => {
     log("HUD Clicked")
     // re-get in case there has been an update
     t = canvas.tokens.get(token.id);
 
-    const oldClock = new SaVClock(a.flags['scum-and-villainy']?.clocks);
+    const oldClock = new SaVClock(a.flags['ziggurat']?.clocks);
     let newClock;
 
     const target = event.target.classList.contains("control-icon")
@@ -181,7 +181,7 @@ export default {
 
 	  const persistObj = {
         flags: {
-          "scum-and-villainy": {
+          "ziggurat": {
 		        clocks: {
               progress: newClock.progress,
               size: newClock.size,
@@ -225,7 +225,7 @@ export default {
     // re-get in case there has been an update
     t = canvas.tokens.get(token.id);
 
-    const oldClock = new SaVClock(a.flags['scum-and-villainy']?.clocks);
+    const oldClock = new SaVClock(a.flags['ziggurat']?.clocks);
     let newClock;
 
     const target = event.target.classList.contains("control-icon")
@@ -243,7 +243,7 @@ export default {
 
 	  const persistObj = {
         flags: {
-          "scum-and-villainy": {
+          "ziggurat": {
 		        clocks: {
               progress: newClock.progress,
               size: newClock.size,

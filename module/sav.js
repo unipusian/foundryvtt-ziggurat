@@ -48,13 +48,13 @@ Hooks.once("init", async function() {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("scum-and-villainy", SaVActorSheet, { types: ["character"], makeDefault: true });
-  Actors.registerSheet("scum-and-villainy", SaVNPCSheet, { types: ["npc"], makeDefault: true });
-  Actors.registerSheet("scum-and-villainy", SaVShipSheet, { types: ["ship"], makeDefault: true });
-  Actors.registerSheet("scum-and-villainy", SaVClockSheet, { types: ["\uD83D\uDD5B clock"], makeDefault: true });
-  Actors.registerSheet("scum-and-villainy", SaVUniverseSheet, { types: ["universe"], makeDefault: true});
+  Actors.registerSheet("ziggurat", SaVActorSheet, { types: ["character"], makeDefault: true });
+  Actors.registerSheet("ziggurat", SaVNPCSheet, { types: ["npc"], makeDefault: true });
+  Actors.registerSheet("ziggurat", SaVShipSheet, { types: ["ship"], makeDefault: true });
+  Actors.registerSheet("ziggurat", SaVClockSheet, { types: ["\uD83D\uDD5B clock"], makeDefault: true });
+  Actors.registerSheet("ziggurat", SaVUniverseSheet, { types: ["universe"], makeDefault: true});
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("scum-and-villainy", SaVItemSheet, {makeDefault: true});
+  Items.registerSheet("ziggurat", SaVItemSheet, {makeDefault: true});
   await preloadHandlebarsTemplates();
 
   Handlebars.registerHelper({
@@ -233,7 +233,7 @@ Hooks.once("init", async function() {
 
   Handlebars.registerHelper('sav-clock', function(parameter_name, type, current_value, uniq_id, theme ) {
 
-    theme = typeof theme !== 'object' ? theme: game.system.savclocks.themes[game.settings.get("scum-and-villainy", "defaultClockTheme")];
+    theme = typeof theme !== 'object' ? theme: game.system.savclocks.themes[game.settings.get("ziggurat", "defaultClockTheme")];
 
     let html = '';
 
@@ -247,7 +247,7 @@ Hooks.once("init", async function() {
 
     // Label for 0
     html += `<label class="clock-zero-label" for="clock-0-${uniq_id}}"><i class="fab fa-creative-commons-zero nullifier"></i></label>`;
-    html += `<div id="sav-clock-${uniq_id}" class="sav-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('/systems/scum-and-villainy/themes/${theme}/${type}clock_${current_value}.webp');">`;
+    html += `<div id="sav-clock-${uniq_id}" class="sav-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('/systems/ziggurat/themes/${theme}/${type}clock_${current_value}.webp');">`;
 
     let zero_checked = (parseInt(current_value) === 0) ? 'checked="checked"' : '';
     html += `<input type="radio" value="0" id="clock-0-${uniq_id}}" name="${parameter_name}" ${zero_checked}>`;
@@ -275,7 +275,7 @@ Hooks.once("init", async function() {
 Hooks.once("ready", async function() {
   //game.savclocks = new SaVClock();
   // Determine whether a system migration is required
-  const currentVersion = game.settings.get("scum-and-villainy", "systemMigrationVersion");
+  const currentVersion = game.settings.get("ziggurat", "systemMigrationVersion");
   const NEEDS_MIGRATION_VERSION = 1.0;
 
   let needMigration = (currentVersion < NEEDS_MIGRATION_VERSION) || (currentVersion === null);
@@ -359,7 +359,7 @@ Hooks.on("preUpdateActor", (actor, data, options, userId) => {
         console.log(item, newValue, oldValue);
         break;
     }
-    if ( item !== undefined && game.settings.get("scum-and-villainy", "logResourceToChat") ) {
+    if ( item !== undefined && game.settings.get("ziggurat", "logResourceToChat") ) {
       SaVHelpers.chatNotify( actorName, resource, oldValue, newValue );
     }
   }
@@ -376,7 +376,7 @@ Hooks.on("preUpdateItem", (item, data, options, userId) => {
       } else {
         resource = itemName + " " + game.i18n.localize( "BITD.ItemRepaired" );
       }
-      if( game.settings.get( "scum-and-villainy", "logResourceToChat" ) ) {
+      if( game.settings.get( "ziggurat", "logResourceToChat" ) ) {
         SaVHelpers.chatNotifyString( actorName, resource );
       }
     }

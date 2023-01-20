@@ -1,6 +1,4 @@
-# FoundryVTT Scum and Villainy character and ship sheets
-
-An attempt to adapt the Blades in the Dark system created by megastruktur to Scum and Villainy
+An attempt to adapt the Blades in the Dark system created by megastruktur to Scum and Villainy, and now again to something else!
 
 ## IMPORTANT NOTES
 
